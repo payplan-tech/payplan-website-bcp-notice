@@ -3,7 +3,7 @@
 What visitors see while **payplan.com** is unavailable. PayPlan's Business
 Continuity Plan is active following the PHP cyber security advisory.
 
-Static HTML and one stylesheet. No build, no framework, no dependency on any
+One static HTML file. No build, no framework, no dependency on any
 PayPlan service — it has to render when other things do not.
 
 ## The WhatsApp link
@@ -16,6 +16,29 @@ carrying a WhatsApp link. The submission form's own `whatsAppNumber` field is
 empty, and payplan.com was returning 503, so neither could supply it.
 
 If the business WhatsApp number has changed, this is the one line to update.
+
+## One file, under 4KB
+
+`index.html` is the whole site: the CSS is inline and there is no stylesheet to
+fetch. It is **4091 bytes**, inside the 4096-byte limit for a WAF custom
+response body, so the same file can be served by Pages and pasted into the WAF.
+
+**That budget is the constraint on every edit.** Check it before pushing:
+
+```sh
+wc -c index.html     # must stay under 4096
+```
+
+Things that were cut to fit, and should not come back without finding the bytes
+elsewhere: the favicon, the code comments (which is why this file carries the
+explanation instead), and the separate stylesheet. What was kept: the Figtree
+webfont, because without it the page stops looking like PayPlan.
+
+Brand values are inline literals rather than custom properties — each is used
+once or twice, and the indirection cost more than it saved. They come from
+`packages/design-tokens/v6.css` in the website repo: cobalt-600 `#2200cc`,
+cobalt-900 `#0f0054`, sand-50 `#faf7f0`, sand-200 `#ece3d8`, sand-600
+`#6b6257`, sand-900 `#231f1a`, gold-500 `#c9922f`.
 
 ## Changing the message
 
