@@ -1,0 +1,260 @@
+/*
+ * PayPlan holding page.
+ *
+ * The brand tokens from packages/design-tokens/v6.css in the website repo,
+ * copied rather than imported: this page has to render when everything else
+ * is down, so it carries no build step, no framework and no dependency on
+ * another service. If the palette changes there, change it here too — there
+ * is no mechanism keeping them in step, on purpose.
+ */
+:root {
+  --cobalt-600: #2200cc;
+  --cobalt-700: #1d00ad;
+  --cobalt-900: #0f0054;
+  --sand-50: #faf7f0;
+  --sand-100: #f4f0e9;
+  --sand-200: #ece3d8;
+  --sand-600: #6b6257;
+  --sand-900: #231f1a;
+  --gold-200: #edd094;
+  --gold-500: #c9922f;
+
+  --primary: var(--cobalt-600);
+  --primary-hover: var(--cobalt-700);
+  --surface: #ffffff;
+  --surface-alt: var(--sand-50);
+  --line: var(--sand-200);
+  --ink: var(--sand-900);
+  --ink-muted: var(--sand-600);
+
+  --sans: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --gutter: 24px;
+}
+
+@media (min-width: 1024px) {
+  :root { --gutter: 64px; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.625;
+  color: var(--ink);
+  background: var(--surface-alt);
+  /* Pushes the footer down on a short page without a layout framework. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --- Header -------------------------------------------------------------- */
+
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding-block: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--primary);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.logo sup {
+  font-size: 10px;
+  vertical-align: super;
+}
+
+/* --- The status message, which is the whole point of the page ------------ */
+
+main {
+  flex: 1;
+  padding-block: clamp(40px, 8vw, 88px);
+}
+
+.status {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  /* The gold rule is the one brand flourish here. It draws the eye to the
+     message rather than decorating the page. */
+  border-top: 6px solid var(--gold-500);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 4vw, 48px);
+  max-width: 760px;
+}
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(30px, 3.2vw, 44px);
+  font-weight: 700;
+  line-height: 1.09;
+  letter-spacing: -0.021em;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 1.56;
+  margin: 0 0 16px;
+}
+
+.status p { margin: 0 0 16px; }
+.status p:last-child { margin-bottom: 0; }
+
+.status ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.status li { margin-bottom: 8px; }
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 32px 0 12px;
+}
+
+a { color: var(--primary); }
+a:hover { color: var(--primary-hover); }
+
+/* --- Contact, when there is one to give ---------------------------------- */
+
+.contact {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.phone {
+  display: inline-block;
+  font-size: clamp(28px, 2.6vw, 36px);
+  font-weight: 700;
+  line-height: 1.11;
+  letter-spacing: -0.022em;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.phone:hover { text-decoration: underline; }
+
+.muted {
+  color: var(--ink-muted);
+  font-size: 14px;
+  line-height: 1.57;
+}
+
+/* --- Footer -------------------------------------------------------------- */
+
+.footer {
+  background: var(--cobalt-900);
+  color: #ffffff;
+  padding-block: 32px;
+}
+
+.footer .wrap > * { margin: 0 0 12px; }
+.footer .wrap > *:last-child { margin-bottom: 0; }
+
+.footer p {
+  font-size: 14px;
+  line-height: 1.57;
+  color: rgb(255 255 255 / 0.7);
+}
+
+.footer a { color: #ffffff; }
+
+/* Honour a reader who has asked for less contrast-shifting motion. Nothing
+   here animates, so this is only here to stop a future addition forgetting. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Actions -------------------------------------------------------------
+ * The site's primary button: a cobalt pill, 16px semibold, the same padding
+ * and hover as HeroV6's call to action. The WhatsApp link takes the same
+ * treatment rather than WhatsApp's own green — it is PayPlan's page, and the
+ * glyph is what makes it recognisable.
+ */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  background: var(--primary);
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+.btn svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  fill: currentColor;
+}
+
+/* The phone sits beside the button as a second action of equal weight: on a
+   page people reach when they wanted help, neither channel is the lesser. */
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 12px 26px;
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  color: var(--primary);
+  background: var(--sand-100);
+  opacity: 1;
+}
