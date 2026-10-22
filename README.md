@@ -6,6 +6,12 @@ Continuity Plan is active following the PHP cyber security advisory.
 One static HTML file. No build, no framework, no dependency on any
 PayPlan service — it has to render when other things do not.
 
+## Contacts on the page
+
+WhatsApp plus six numbers, all `tel:` links: 0800 316 1833 for new customers,
+then IVA, DMP, DRO, Scottish customers and Breathing Space. They come from the
+approved notice, not from Sanity — `siteSettings` only carries the 0800.
+
 ## The WhatsApp link
 
 `https://wa.me/447441927800?text=Ready%20to%20chat%20now`
@@ -20,7 +26,7 @@ If the business WhatsApp number has changed, this is the one line to update.
 ## One file, under 4KB
 
 `index.html` is the whole site: the CSS is inline and there is no stylesheet to
-fetch. It is **4091 bytes**, inside the 4096-byte limit for a WAF custom
+fetch. It is **3917 bytes**, inside the 4096-byte limit for a WAF custom
 response body, so the same file can be served by Pages and pasted into the WAF.
 
 **That budget is the constraint on every edit.** Check it before pushing:
@@ -29,10 +35,20 @@ response body, so the same file can be served by Pages and pasted into the WAF.
 wc -c index.html     # must stay under 4096
 ```
 
-Things that were cut to fit, and should not come back without finding the bytes
-elsewhere: the favicon, the code comments (which is why this file carries the
-explanation instead), and the separate stylesheet. What was kept: the Figtree
-webfont, because without it the page stops looking like PayPlan.
+Things that were cut to fit, and should not come back without finding the
+bytes elsewhere:
+
+- **The favicon** (297 bytes).
+- **The code comments**, which is why this file carries the explanation.
+- **The separate stylesheet.**
+- **The WhatsApp glyph** (about 1030 bytes, a quarter of the budget). The
+  button is the same cobalt pill and still reads "Message us on WhatsApp"; it
+  just has no mark beside it. If the mark matters more than the typeface, drop
+  the Figtree link and there is room for roughly half of it back — the glyph
+  only fits if something else substantial goes.
+
+What was kept: the Figtree webfont, because without it the page stops looking
+like PayPlan.
 
 Brand values are inline literals rather than custom properties — each is used
 once or twice, and the indirection cost more than it saved. They come from
