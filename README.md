@@ -6,16 +6,16 @@ Continuity Plan is active following the PHP cyber security advisory.
 Static HTML and one stylesheet. No build, no framework, no dependency on any
 PayPlan service — it has to render when other things do not.
 
-## Outstanding
+## The WhatsApp link
 
-**The WhatsApp link points nowhere yet.** The button href is
-`https://wa.me/0000000000`. Replace those digits with the WhatsApp business
-number in international format — digits only, no `+` and no spaces, so a UK
-number written `07700 900123` becomes `447700900123`.
+`https://wa.me/447441927800?text=Ready%20to%20chat%20now`
 
-It could not be filled in automatically: `whatsAppNumber` is empty in Sanity,
-and payplan.com was already returning 503 so it could not be read from the
-live page either.
+That number and prefill come from the published post "What happens when you
+contact PayPlan — a step-by-step guide", the only content in the dataset
+carrying a WhatsApp link. The submission form's own `whatsAppNumber` field is
+empty, and payplan.com was returning 503, so neither could supply it.
+
+If the business WhatsApp number has changed, this is the one line to update.
 
 ## Changing the message
 
